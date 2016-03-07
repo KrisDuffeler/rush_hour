@@ -17,8 +17,8 @@ class ChallengeCard
     end
   end
 
-  attr_accessor :exit
-  attr_accessor :vehicles
+  attr_reader :exit
+  attr_reader :vehicles
 
   def initialize
     @vehicles = []

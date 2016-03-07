@@ -2,6 +2,7 @@ class Vehicle
   attr_accessor :from_cell
   attr_reader :color
   attr_reader :orientation
+  attr_reader :nr_of_cells
 
   def initialize(color, orientation, from_cell, nr_of_cells)
     @color = color

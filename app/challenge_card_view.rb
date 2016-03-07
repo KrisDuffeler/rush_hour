@@ -24,7 +24,7 @@ class ChallengeCardView
     row.cells.each do |cell|
       rendered_row += render_cell(cell)
 
-      if cell == @challenge_card.exit
+      if cell == @challenge_card.exit.cell && @challenge_card.exit.vertical?
         row_divider += '    '
       else
         row_divider += '----'
@@ -33,11 +33,16 @@ class ChallengeCardView
       last_cell = cell
     end
 
-    unless last_cell == @challenge_card.exit
+    unless last_cell == @challenge_card.exit.cell && @challenge_card.exit.horizontal?
      rendered_row += '|'
     end
 
-    puts row_divider
+    if row.row_nr == 0
+      puts row_divider
+    else
+      puts '  ------------------------'
+    end
+
     puts rendered_row
     puts row_divider if row.row_nr == 5
   end
@@ -46,13 +51,13 @@ class ChallengeCardView
     vehicle_on_cell = @challenge_card.vehicle_on_cell(cell)
 
     if vehicle_on_cell
-      if cell == @challenge_card.exit
+      if cell.col == 0 && cell == @challenge_card.exit.cell && @challenge_card.exit.horizontal?
         '  ' + 'O'.bold.colorize(vehicle_on_cell.color) + ' '
       else
         '| ' + 'O'.bold.colorize(vehicle_on_cell.color) + ' '
       end
     else
-      if cell == @challenge_card.exit
+      if cell.col == 0 && cell == @challenge_card.exit.cell && @challenge_card.exit.horizontal?
         '    '
       else
         '|   '
