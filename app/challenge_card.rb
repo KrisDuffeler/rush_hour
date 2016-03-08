@@ -1,27 +1,17 @@
 class ChallengeCard
-  class Row
-    attr_reader :row_nr
-
-    def initialize(row_nr)
-      @row_nr = row_nr
-    end
-
-    def cells
-      @cells ||= [Cell.new(@row_nr, 0), Cell.new(@row_nr, 1), Cell.new(@row_nr, 2), Cell.new(@row_nr, 3), Cell.new(@row_nr, 4), Cell.new(@row_nr, 5)]
-    end
-  end
-
-  class << self
-    def rows
-      @rows ||= [Row.new(0), Row.new(1), Row.new(2), Row.new(3), Row.new(4), Row.new(5)]
-    end
-  end
-
-  attr_reader :exit
   attr_reader :vehicles
+  attr_reader :exit
 
   def initialize
     @vehicles = []
+  end
+
+  def self.rows
+    @rows ||= [Row.new(0), Row.new(1), Row.new(2), Row.new(3), Row.new(4), Row.new(5)]
+  end
+
+  def red_car
+    @red_car ||= @vehicles.find{|vehicle| vehicle.is_a?(Car) && vehicle.color == :red}
   end
 
   def do_move(from_cell_as_string, to_cell_as_string)

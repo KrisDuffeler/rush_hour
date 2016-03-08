@@ -33,7 +33,9 @@ while !input.exit?
         puts "\n\n"
         move = challenge_card.do_move(input.cells_as_string[0], input.cells_as_string[1])
 
-        if move.valid?
+        if move.game_finished?
+          puts '---- CONGRATIULATIONS -----'.bold.colorize(:green)
+        elsif move.valid?
           puts '----------- OK ------------'.bold.colorize(:green)
         else
           puts move.errors.map{|e| e.bold.colorize(:red)}

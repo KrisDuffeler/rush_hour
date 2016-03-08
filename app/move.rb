@@ -11,7 +11,19 @@ class Move
   end
 
   def execute
-    @vehicle.from_cell = @to_cell if valid?
+    if valid?
+      @vehicle.from_cell = @to_cell
+
+      if @vehicle == @challenge_card.red_car
+        @challenge_card.red_car.cells.each do |red_car_cell|
+          @game_finished = true if red_car_cell == @challenge_card.exit.cell && @challenge_card.exit.orientation == @challenge_card.red_car.orientation
+        end
+      end
+    end
+  end
+
+  def game_finished?
+    @game_finished
   end
 
   def valid?
