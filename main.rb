@@ -20,17 +20,17 @@ while !input.exit?
       if input.audit?
          puts challenge_card.audit
       elsif input.undo?
-        challenge_card.handle_undo
+        event = challenge_card.handle_undo
 
         ChallengeCardView.new(challenge_card.current_state).render
       elsif input.redo?
-        challenge_card.handle_redo
+        event = challenge_card.handle_redo
 
         ChallengeCardView.new(challenge_card.current_state).render
       elsif input.move?
-        move = challenge_card.handle_move(input.cells_as_string[0], input.cells_as_string[1])
+        event = challenge_card.handle_move(input.cells_as_string[0], input.cells_as_string[1])
 
-        ChallengeCardView.new(challenge_card.current_state, move).render
+        ChallengeCardView.new(challenge_card.current_state, event).render
       end
     elsif input.challenge_card_selection?
       challenge_card = ChallengeCard.new

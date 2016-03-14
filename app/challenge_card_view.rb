@@ -1,7 +1,7 @@
 class ChallengeCardView
-  def initialize(challenge_card, move = nil)
+  def initialize(challenge_card, event = nil)
     @challenge_card = challenge_card
-    @move = move
+    @event = event
   end
 
   def render
@@ -22,11 +22,11 @@ class ChallengeCardView
   def render_previous_output
     if @challenge_card.finished?
       puts '---- CONGRATIULATIONS -----'.bold.colorize(:green)
-    elsif @move
-      if @move.valid?
-        puts '----------- OK ------------'.bold.colorize(:green)
+    elsif @event
+      if @event.valid?
+        puts @event.to_s.bold.colorize(:green)
       else
-        puts @move.errors.map{|e| e.bold.colorize(:red)}
+        puts @event.errors.map{|e| e.bold.colorize(:red)}
       end
     end
   end
