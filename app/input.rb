@@ -29,6 +29,10 @@ class Input
     @input_string == 'U'
   end
 
+  def redo?
+    @input_string == 'R'
+  end
+
   def exit?
     @input_string == 'E'
   end
@@ -46,15 +50,15 @@ class Input
   def validate
     @errors = []
 
-    if !move? && !challenge_card_selection? && !audit? && !undo? && !exit? && !empty?
-      @errors << 'Ongeldig commando ingegeven!'
+    if !move? && !challenge_card_selection? && !audit? && !undo? && !redo? && !exit? && !empty?
+      @errors << 'Invalid command given!'
     else
       if !@ongoing_game && !challenge_card_selection? && !empty?
-        @errors << 'Kies eerst een nieuw spel!'
+        @errors << 'Choose a challenge card first!'
       end
 
       if @ongoing_game && challenge_card_selection?
-        @errors << 'U moet eerst het spel eindigen voor u er een nieuw kan opstarten!'
+        @errors << 'You should finish the current game before you start a new one!'
       end
     end
   end

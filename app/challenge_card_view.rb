@@ -1,9 +1,12 @@
 class ChallengeCardView
-  def initialize(challenge_card)
+  def initialize(challenge_card, move = nil)
     @challenge_card = challenge_card
+    @move = move
   end
 
   def render
+    render_previous_output
+
     puts "-------------#{@challenge_card.class.nr}-------------"
     puts '    A   B   C   D   E   F'
 
@@ -11,10 +14,22 @@ class ChallengeCardView
       render_row(row)
     end
 
-    puts "End: 'E' - Audit: 'A' - Undo: 'U' - Move: 'A1 B1':"
+    puts "End: 'E' - Audit: 'A' - Undo: 'U' - Redo: 'R' - Move: 'A1 B1':"
   end
 
   private
+
+  def render_previous_output
+    if @challenge_card.finished?
+      puts '---- CONGRATIULATIONS -----'.bold.colorize(:green)
+    elsif @move
+      if @move.valid?
+        puts '----------- OK ------------'.bold.colorize(:green)
+      else
+        puts @move.errors.map{|e| e.bold.colorize(:red)}
+      end
+    end
+  end
 
   def render_row(row)
     rendered_row = "#{row.row_nr} "
