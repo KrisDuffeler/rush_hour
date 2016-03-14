@@ -12,15 +12,15 @@ class VehicleMoved < DomainEvent
     @to_cell = Cell.from_string(to_cell_as_string)
   end
 
-  def process(game)
-    vehicle = game.vehicle_on_cell(@from_cell)
-    validate(game, vehicle)
+  def process(challenge_card)
+    vehicle = challenge_card.vehicle_on_cell(@from_cell)
+    validate(challenge_card, vehicle)
 
     if valid?
       vehicle.from_cell = @to_cell
     end
 
-    game
+    challenge_card
   end
 
   def reverse
@@ -42,7 +42,7 @@ class VehicleMoved < DomainEvent
 
   private
 
-  def validate(game, vehicle)
+  def validate(challenge_card, vehicle)
     @errors = []
 
     if vehicle
@@ -57,7 +57,7 @@ class VehicleMoved < DomainEvent
 
         unless destination_row > 5 || destination_col > 5
           destination_cell = Cell.from_row_and_col(destination_row, destination_col)
-          vehicle_on_destination_cell = game.vehicle_on_cell(destination_cell)
+          vehicle_on_destination_cell = challenge_card.vehicle_on_cell(destination_cell)
 
           if vehicle_on_destination_cell && vehicle_on_destination_cell != vehicle
             @errors << "#{vehicle_on_destination_cell.color.capitalize} #{vehicle_on_destination_cell.class.name} blocks the road!"

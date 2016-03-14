@@ -9,7 +9,7 @@ class ChallengeCardChosen < DomainEvent
     @challenge_card_nr = challenge_card_nr
   end
 
-  def process(game)
+  def process(challenge_card)
     ChallengeCards.all[@challenge_card_nr].new
   end
 
