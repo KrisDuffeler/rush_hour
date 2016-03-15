@@ -4,7 +4,7 @@ class ChallengeCard < Aggregate
   attr_reader :exit
 
   def initialize
-    super
+    super()
 
     @vehicles = []
   end

@@ -6,6 +6,7 @@ class Aggregate
   def initialize
     @id = SecureRandom.base64
     @events = []
+    @undo_stack = []
   end
 
   def self.find_by_id(id)
@@ -32,15 +33,17 @@ class Aggregate
   end
 
   def handle_undo
-    event = events.reverse.find{|e| !e.is_undo? }
+    event = events.last
+
+    @undo_stack << event
 
     append(event.reverse)
   end
 
   def handle_redo
-    event = events.find{|e| e.is_undo? }
+    event = @undo_stack.shift
 
-    append(event.reverse)
+    append(event.copy) if event
   end
 
   def audit

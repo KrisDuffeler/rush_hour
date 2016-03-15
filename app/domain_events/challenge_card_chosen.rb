@@ -4,7 +4,7 @@ class ChallengeCardChosen < DomainEvent
   attr_reader :challenge_card_nr
 
   def initialize(challenge_card_nr)
-    super(false)
+    super()
 
     @challenge_card_nr = challenge_card_nr
   end

@@ -3,8 +3,8 @@ class VehicleMoved < DomainEvent
   attr_reader :to_cell_as_string
   attr_reader :errors
 
-  def initialize(from_cell_as_string, to_cell_as_string, is_undo = false)
-    super(is_undo)
+  def initialize(from_cell_as_string, to_cell_as_string)
+    super()
 
     @from_cell_as_string = from_cell_as_string
     @to_cell_as_string = to_cell_as_string
@@ -24,7 +24,11 @@ class VehicleMoved < DomainEvent
   end
 
   def reverse
-    VehicleMoved.new(self.to_cell_as_string, self.from_cell_as_string, !self.is_undo?)
+    VehicleMoved.new(self.to_cell_as_string, self.from_cell_as_string)
+  end
+
+  def copy
+    VehicleMoved.new(self.from_cell_as_string, self.to_cell_as_string)
   end
 
   def valid?
