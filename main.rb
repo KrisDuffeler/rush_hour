@@ -1,7 +1,10 @@
 require 'colorize'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
-Dir[File.dirname(__FILE__) + '/app/domain_events/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/app/models/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/app/events/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/app/views/*.rb'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/app/config/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/app/*.rb'].each {|file| require file }
 
 #TODO

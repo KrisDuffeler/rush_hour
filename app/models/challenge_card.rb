@@ -1,5 +1,4 @@
 class ChallengeCard < Aggregate
-  attr_reader :challenge_card
   attr_reader :vehicles
   attr_reader :exit
 
@@ -26,11 +25,11 @@ class ChallengeCard < Aggregate
   end
 
   def handle_challenge_card_chosen(input_string)
-    append(ChallengeCardChosen.new(input_string))
+    handle_event(ChallengeCardChosen.new(input_string))
   end
 
   def handle_move(from_cell_as_string, to_cell_as_string)
-    append(VehicleMoved.new(from_cell_as_string, to_cell_as_string))
+    handle_event(VehicleMoved.new(from_cell_as_string, to_cell_as_string))
   end
 
   def vehicle_on_cell(cell)
